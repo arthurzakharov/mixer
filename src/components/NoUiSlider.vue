@@ -2,8 +2,7 @@
   <!-- TODO: implement later action and token -->
   <!--<form class="header-xchange-block" id="home-exchange-form" method="POST" action="{{ url('application') }}">-->
   <!--<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">-->
-  <form method="POST" action="/application" id="form" class="form">
-    <input type="hidden" name="csrfmiddlewaretoken" value="">
+  <div id="form" class="form">
     <div class="form__input-container">
       <a-input
         v-for="(inputsField, index) in inputsFields"
@@ -16,7 +15,7 @@
     </div>
     <a-button class="form__button" text="Add" :handleClick="addInputField"/>
     <div class="form__slider" id="slider" ref="slider"></div>
-  </form>
+  </div>
 </template>
 
 <script>

@@ -1,7 +1,7 @@
 <template>
   <button
     class="button"
-    type="submit"
+    type="button"
     @click="handleClick"
   >{{ text }}
   </button>
