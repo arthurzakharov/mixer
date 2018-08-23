@@ -77,8 +77,8 @@ export default {
     display: block;
     /* total width of static close and text */
     width: calc(100% - 120px);
-    margin-left: 50px;
-    margin-right: 50px;
+    margin-left: auto;
+    margin-right: auto;
     font-size: 12px;
     line-height: 14px;
     color: lightskyblue;
@@ -94,6 +94,7 @@ export default {
     box-sizing: border-box;
     font-size: 16px;
     line-height: 20px;
+    color: lightskyblue;
     &:focus {
       border: 2px solid dodgerblue;
       outline: none;
@@ -121,8 +122,6 @@ export default {
   .input {
     &__wrapper {
       width: calc(100% - 140px);
-      margin-left: 60px;
-      margin-right: 60px;
       font-size: 13px;
       line-height: 15px;
     }
@@ -143,8 +142,6 @@ export default {
   .input {
     &__wrapper {
       width: calc(100% - 180px);
-      margin-left: 80px;
-      margin-right: 80px;
       font-size: 14px;
       line-height: 16px;
     }

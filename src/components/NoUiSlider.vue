@@ -3,15 +3,25 @@
   <!--<form class="header-xchange-block" id="home-exchange-form" method="POST" action="{{ url('application') }}">-->
   <!--<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">-->
   <div id="form" class="form">
-    <div class="form__input-fee-container">
-      <label>
-        <input type="number" step="0.00000001" name="amount" value="1"> BTC
-      </label>
-      <label>
-        <input type="number" placeholder="fee" name="fee" min="0.0005" max="3.0000" step="0.0001">
-      </label>
+    <div class="form__fee-container">
+      <a-input-fee
+        id="amount_of_btc"
+        step="0.00000001"
+        name="amount"
+        value="1"
+        text="BTC"
+      />
+      <a-input-fee
+        id="fee_for_btc"
+        step="0.0001"
+        name="fee"
+        value="0.001"
+        min="0.0005"
+        max="3.0000"
+        text="Fee"
+      />
     </div>
-    <div class="form__input-container">
+    <div class="form__address-container">
       <a-input-address
         v-for="(inputsField, index) in inputsFields"
         :key="`key_from_${index}`"
@@ -30,11 +40,12 @@
 <script>
 import noUiSlider from 'nouislider';
 import AInputAddress from './AInputAddress.vue';
+import AInputFee from './AInputFee';
 import AButton from './AButton.vue';
 
 export default {
   name: 'NoUiSlider',
-  components: { AInputAddress, AButton },
+  components: { AInputAddress, AInputFee, AButton },
   data() {
     return {
       isFirstCallOfSlider: true,
@@ -161,6 +172,12 @@ export default {
   border: 1px solid lightskyblue;
   border-radius: 10px;
   box-shadow: 1px 1px 10px lightblue;
+  &__fee-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px auto;
+    width: calc(100% - 130px);
+  }
   &__input {
     margin-left: 5px;
     margin-right: 5px;
@@ -182,6 +199,10 @@ export default {
     width: 85%;
     margin: 60px auto;
     padding: 40px 15px;
+    &__fee-container {
+      width: calc(100% - 140px);
+      margin: 25px auto;
+    }
     &__input {
       margin-left: 0;
       margin-right: 0;
@@ -204,6 +225,10 @@ export default {
     width: 75%;
     margin: 70px auto;
     padding: 60px 25px;
+    &__fee-container {
+      width: calc(100% - 180px);
+      margin: 30px auto;
+    }
     &__input {
       margin-bottom: 4%;
     }
