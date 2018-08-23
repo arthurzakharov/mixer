@@ -3,8 +3,16 @@
   <!--<form class="header-xchange-block" id="home-exchange-form" method="POST" action="{{ url('application') }}">-->
   <!--<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">-->
   <div id="form" class="form">
+    <div class="form__input-fee-container">
+      <label>
+        <input type="number" step="0.00000001" name="amount" value="1"> BTC
+      </label>
+      <label>
+        <input type="number" placeholder="fee" name="fee" min="0.0005" max="3.0000" step="0.0001">
+      </label>
+    </div>
     <div class="form__input-container">
-      <a-input
+      <a-input-address
         v-for="(inputsField, index) in inputsFields"
         :key="`key_from_${index}`"
         :text="inputsField"
@@ -14,18 +22,19 @@
       />
     </div>
     <a-button class="form__button" text="Add" :handleClick="addInputField"/>
+    <!-- no-ui-slider-injection -->
     <div class="form__slider" id="slider" ref="slider"></div>
   </div>
 </template>
 
 <script>
 import noUiSlider from 'nouislider';
-import AInput from './AInput.vue';
+import AInputAddress from './AInputAddress.vue';
 import AButton from './AButton.vue';
 
 export default {
   name: 'NoUiSlider',
-  components: { AInput, AButton },
+  components: { AInputAddress, AButton },
   data() {
     return {
       isFirstCallOfSlider: true,

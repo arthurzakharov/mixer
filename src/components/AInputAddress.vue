@@ -1,11 +1,22 @@
 <template>
     <div class="input">
       <div class="input__close" @click="clickHandler"></div>
-      <label class="input__wrapper">
-        <input class="input__field" type="email" :name="`${number}_address__email`"/>
+      <label class="input__wrapper" :for="`${number}_address`">
+        Your wallet address:
+        <input
+          class="input__field"
+          type="email"
+          :name="`${number}_address`"
+          :id="`${number}_address`"
+        />
       </label>
-      <label class="input__hidden">
-        <input type="hidden" :value="text" :name="`${number}_address__percentage`" />
+      <label class="input__hidden" :for="`${number}_address__percentage`">
+        <input
+          type="hidden"
+          :value="text"
+          :name="`${number}_address__percentage`"
+          :id="`${number}_address__percentage`"
+        />
       </label>
       <span class="input__text">{{ `${text}%` }}</span>
     </div>
@@ -13,7 +24,7 @@
 
 <script>
 export default {
-  name: 'AInput',
+  name: 'AInputAddress',
   props: {
     clickHandler: {
       type: Function
@@ -43,6 +54,7 @@ export default {
     opacity: 0.7;
     &:hover {
       opacity: 1;
+      cursor: pointer;
     }
     &:before,
     &:after {
@@ -51,7 +63,7 @@ export default {
       content: ' ';
       height: 33px;
       width: 2px;
-      background-color: dodgerblue;
+      background-color: lightskyblue;
     }
     &:before {
       transform: rotate(45deg);
@@ -67,10 +79,14 @@ export default {
     width: calc(100% - 120px);
     margin-left: 50px;
     margin-right: 50px;
+    font-size: 12px;
+    line-height: 14px;
+    color: lightskyblue;
   }
   &__field {
     width: 100%;
     height: 32px;
+    margin-top: 5px;
     padding: 5px 10px;
     border: 1px solid lightskyblue;
     border-radius: 10px;
@@ -91,7 +107,7 @@ export default {
     font-size: 18px;
     line-height: 22px;
     font-weight: 300;
-    color: dodgerblue;
+    color: lightskyblue;
   }
   &:only-child .input__text {
     display: none;
@@ -107,6 +123,8 @@ export default {
       width: calc(100% - 140px);
       margin-left: 60px;
       margin-right: 60px;
+      font-size: 13px;
+      line-height: 15px;
     }
     &__field {
       height: 36px;
@@ -127,6 +145,8 @@ export default {
       width: calc(100% - 180px);
       margin-left: 80px;
       margin-right: 80px;
+      font-size: 14px;
+      line-height: 16px;
     }
     &__field {
       height: 40px;
