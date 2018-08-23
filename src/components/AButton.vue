@@ -1,7 +1,7 @@
 <template>
   <button
     class="button"
-    type="button"
+    :type="type"
     @click="handleClick"
   >{{ text }}
   </button>
@@ -17,6 +17,10 @@ export default {
     },
     handleClick: {
       type: Function,
+    },
+    type: {
+      type: String,
+      default: 'button'
     }
   },
 }

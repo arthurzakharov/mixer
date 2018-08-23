@@ -74,7 +74,7 @@ export default {
 }
 
 @media screen and (min-width: 768px) {
-  .input {
+  .input-fee {
     &__wrapper {
       font-size: 13px;
       line-height: 15px;
@@ -89,7 +89,7 @@ export default {
 }
 
 @media screen and (min-width: 1024px) {
-  .input {
+  .input-fee {
     &__wrapper {
       font-size: 14px;
       line-height: 16px;

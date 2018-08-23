@@ -31,9 +31,11 @@
         class="form__input"
       />
     </div>
-    <a-button class="form__button" text="Add" :handleClick="addInputField"/>
+    <a-button class="form__button" text="Add" :handleClick="addInputField" />
     <!-- no-ui-slider-injection -->
     <div class="form__slider" id="slider" ref="slider"></div>
+    <!-- html post button -->
+    <a-button class="form__button form__button--submit" text="Sell" type="submit" :handleClick="submit" />
   </div>
 </template>
 
@@ -60,6 +62,9 @@ export default {
     };
   },
   methods: {
+    submit() {
+      console.log('form is sent');
+    },
     addInputField() {
       this.amountOfHandlers++;
       this.amountOfInputs++;
@@ -78,6 +83,13 @@ export default {
       if (this.amountOfHandlers !== 0) {
         this.createSlider();
       }else {
+        const line = this.$refs.slider;
+        Object.assign(
+          line.style,
+          {
+            display: 'none'
+          }
+        );
         this.isFirstCallOfSlider = true;
         this.setInitialStateOfInputs();
       }
@@ -97,7 +109,7 @@ export default {
         this.currentHandlersPosition = this.roundFloatArray(positions);
       });
       this.$refs.slider.noUiSlider.on('update', () => {
-        const line = document.querySelector('.noUi-horizontal');
+        const line = this.$refs.slider;
         const handlers = document.querySelectorAll('.noUi-handle');
         handlers.forEach(el => {
           Object.assign(
@@ -117,6 +129,7 @@ export default {
         Object.assign(
           line.style,
           {
+            display: 'block',
             height: '5px',
             backgroundColor: 'lightblue',
             border: '1px solid lightskyblue',
@@ -187,6 +200,9 @@ export default {
     display: block;
     width: 40%;
     margin: 40px auto;
+    &--submit {
+      margin-top: 20px;
+    }
   }
   &__slider {
     margin-left: 25px;
@@ -211,6 +227,9 @@ export default {
     &__button {
       width: 30%;
       margin: 0 auto;
+      &--submit {
+        margin-top: 40px;
+      }
     }
     &__slider {
       margin-top: 60px;
@@ -234,6 +253,9 @@ export default {
     }
     &__button {
       width: 20%;
+      &--submit {
+        margin-top: 60px;
+      }
     }
   }
 }
