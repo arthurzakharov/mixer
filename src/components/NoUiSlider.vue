@@ -32,6 +32,8 @@
       />
     </div>
     <a-button class="form__button" text="Add" :handleClick="addInputField" />
+    <!-- no-ui-slider injection for fee field -->
+    <div class="form__slider" id="slider-fee" ref="slider-fee"></div>
     <!-- no-ui-slider-injection -->
     <div class="form__slider" id="slider" ref="slider"></div>
     <!-- html post button -->

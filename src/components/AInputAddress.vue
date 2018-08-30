@@ -5,17 +5,17 @@
         Your wallet address:
         <input
           class="input__field"
-          type="email"
-          :name="`${number}_address`"
-          :id="`${number}_address`"
+          type="text"
+          :name="`person_addresses-${number}`"
+          :id="`person_addresses-${number}`"
         />
       </label>
       <label class="input__hidden" :for="`${number}_address__percentage`">
         <input
           type="hidden"
           :value="text"
-          :name="`${number}_address__percentage`"
-          :id="`${number}_address__percentage`"
+          :name="`address_percentage-${number}`"
+          :id="`address_percentage-${number}`"
         />
       </label>
       <span class="input__text">{{ `${text}%` }}</span>
