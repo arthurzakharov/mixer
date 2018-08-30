@@ -6,9 +6,9 @@
         class="input-fee__field"
         :id="id"
         type="number"
-        :step="step"
         :name="name"
-        :value="value"
+        v-model="feeValue"
+        disabled
       />
     </label>
   </div>
@@ -21,9 +21,6 @@ export default {
     step: {
       type: String
     },
-    value: {
-      type: String
-    },
     name: {
       type: String
     },
@@ -33,15 +30,17 @@ export default {
     text: {
       type: String
     },
-    minAmount: {
+    feeValue: {
       type: Number
-    },
-    minFee: {
-      type: Number
-    },
-    maxFee: {
-      type: Number
-    },
+    }
+  },
+  data() {
+    return {
+      fee: undefined
+    };
+  },
+  mounted() {
+    this.fee = this.feeValue;
   }
 }
 </script>
@@ -67,6 +66,7 @@ export default {
     font-size: 16px;
     line-height: 20px;
     color: lightskyblue;
+    background-color: white;
     &:focus {
       border: 2px solid dodgerblue;
       outline: none;

@@ -12,12 +12,9 @@
       />
       <a-input-fee
         id="fee_for_btc"
-        step="0.0001"
         name="fee"
-        value="0.001"
         text="Fee"
-        :minFee="$root.$data.minFee"
-        :maxFee="$root.$data.maxFee"
+        :feeValue="feeValue"
       />
     </div>
     <div class="form__address-container">
@@ -32,7 +29,8 @@
     </div>
     <a-button class="form__button" text="Add" :handleClick="addInputField" />
     <!-- no-ui-slider injection for fee field -->
-    <div class="form__slider" id="slider-fee" ref="slider-fee"></div>
+    <p class="form__fee-label">Drag to set the fee:</p>
+    <div class="form__slider" id="sliderFee" ref="sliderFee"></div>
     <!-- no-ui-slider-injection -->
     <div class="form__slider" id="slider" ref="slider"></div>
     <!-- html post button -->
@@ -52,6 +50,7 @@ export default {
   components: { AInputAddress, AInputFee, AInputAmount, AButton },
   data() {
     return {
+      feeValue: 0,
       isFirstCallOfSlider: true,
       amountOfInputs: 1,
       amountOfHandlers: 0,
@@ -106,37 +105,14 @@ export default {
           range: this.range,
         }
       );
-      this.$refs.slider.noUiSlider.on('slide', (values, handle, unencoded, tap, positions) => {
+      const line = this.$refs.slider;
+      line.noUiSlider.on('slide', (values, handle, unencoded, tap, positions) => {
         this.updateInputFieldsValue(positions, handle);
         this.currentHandlersPosition = this.roundFloatArray(positions);
       });
-      this.$refs.slider.noUiSlider.on('update', () => {
-        const line = this.$refs.slider;
-        const handlers = document.querySelectorAll('.noUi-handle');
-        handlers.forEach(el => {
-          Object.assign(
-            el.style,
-            {
-              backgroundColor: 'lightblue',
-              opacity: '1',
-              width: '20px',
-              height: '20px',
-              border: '1px solid lightskyblue',
-              borderRadius: '50%',
-              outline: 'none',
-              top: '-10px',
-            }
-          );
-        });
-        Object.assign(
-          line.style,
-          {
-            display: 'block',
-            height: '5px',
-            backgroundColor: 'lightblue',
-            border: '1px solid lightskyblue',
-          }
-        );
+      line.noUiSlider.on('update', () => {
+        this.setStylesToSliderHandlers();
+        this.setStylesToSliderLine(line);
       });
     },
     roundFloatArray(arr) {
@@ -174,7 +150,56 @@ export default {
       tempArrayOfInputFields[index + 1] = parseFloat(secondChange);
       this.$set(this.inputsFields, tempArrayOfInputFields);
     },
+    setStylesToSliderHandlers() {
+      const handlers = document.querySelectorAll('.noUi-handle');
+      handlers.forEach(el => {
+        Object.assign(
+          el.style,
+          {
+            backgroundColor: 'lightblue',
+            opacity: '1',
+            width: '20px',
+            height: '20px',
+            border: '1px solid lightskyblue',
+            borderRadius: '50%',
+            outline: 'none',
+            top: '-10px',
+          }
+        );
+      });
+    },
+    setStylesToSliderLine(line) {
+      Object.assign(
+        line.style,
+        {
+          display: 'block',
+          height: '5px',
+          backgroundColor: 'lightblue',
+          border: '1px solid lightskyblue',
+        }
+      );
+    },
   },
+  mounted() {
+    const feeSlider = this.$refs.sliderFee;
+    noUiSlider.create(feeSlider, {
+        start: this.$root.$data.minFee,
+        step: 0.00001,
+        range: {
+          'min': this.$root.$data.minFee,
+          'max': this.$root.$data.maxFee,
+        }
+      }
+    );
+    this.setStylesToSliderHandlers();
+    this.setStylesToSliderLine(feeSlider);
+    this.$refs.sliderFee.noUiSlider.on('slide', (values, handle, unencoded, tap, positions) => {
+      const updatedFeeValue = parseFloat(unencoded[0].toFixed(5));
+      console.log(updatedFeeValue);
+      this.feeValue = updatedFeeValue;
+      // this.$set(this.feeValue, feeValue);
+    });
+  }
 }
 </script>
 
@@ -192,6 +217,12 @@ export default {
     justify-content: space-between;
     margin: 20px auto;
     width: calc(100% - 130px);
+  }
+  &__fee-label {
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 20px;
+    color: lightskyblue;
   }
   &__input {
     margin-left: 5px;
@@ -221,6 +252,11 @@ export default {
       width: calc(100% - 140px);
       margin: 25px auto;
     }
+    &__fee-label {
+      margin-top: 30px;
+      font-size: 17px;
+      line-height: 21px;
+    }
     &__input {
       margin-left: 0;
       margin-right: 0;
@@ -249,6 +285,11 @@ export default {
     &__fee-container {
       width: calc(100% - 180px);
       margin: 30px auto;
+    }
+    &__fee-label {
+      margin-top: 40px;
+      font-size: 18px;
+      line-height: 22px;
     }
     &__input {
       margin-bottom: 4%;
