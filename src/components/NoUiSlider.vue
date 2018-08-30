@@ -4,21 +4,20 @@
   <!--<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">-->
   <div id="form" class="form">
     <div class="form__fee-container">
-      <a-input-fee
+      <a-input-amount
         id="amount_of_btc"
-        step="0.00000001"
         name="amount"
-        value="1"
         text="BTC"
+        :minAmount="$root.$data.minAmount"
       />
       <a-input-fee
         id="fee_for_btc"
         step="0.0001"
         name="fee"
         value="0.001"
-        min="0.0005"
-        max="3.0000"
         text="Fee"
+        :minFee="$root.$data.minFee"
+        :maxFee="$root.$data.maxFee"
       />
     </div>
     <div class="form__address-container">
@@ -45,11 +44,12 @@
 import noUiSlider from 'nouislider';
 import AInputAddress from './AInputAddress.vue';
 import AInputFee from './AInputFee';
+import AInputAmount from './AInputAmount';
 import AButton from './AButton.vue';
 
 export default {
   name: 'NoUiSlider',
-  components: { AInputAddress, AInputFee, AButton },
+  components: { AInputAddress, AInputFee, AInputAmount, AButton },
   data() {
     return {
       isFirstCallOfSlider: true,

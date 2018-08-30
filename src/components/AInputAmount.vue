@@ -1,14 +1,15 @@
 <template>
-  <div class="input-fee">
-    <label class="input-fee__wrapper" :for="id">
+  <div class="input-amount">
+    <label class="input-amount__wrapper" :for="id">
       {{ text }}
       <input
-        class="input-fee__field"
+        class="input-amount__field"
         :id="id"
         type="number"
         :step="step"
         :name="name"
-        :value="value"
+        v-model="amountOfBTC"
+        @change="isLessThenMinimalValue"
       />
     </label>
   </div>
@@ -16,14 +17,8 @@
 
 <script>
 export default {
-  name: 'AInputFee',
+  name: 'AInputAmount',
   props: {
-    step: {
-      type: String
-    },
-    value: {
-      type: String
-    },
     name: {
       type: String
     },
@@ -36,18 +31,27 @@ export default {
     minAmount: {
       type: Number
     },
-    minFee: {
-      type: Number
-    },
-    maxFee: {
-      type: Number
-    },
-  }
+  },
+  data() {
+    return {
+      valueOne: 45454,
+      step: 0.0001,
+      amountOfBTC: undefined
+    };
+  },
+  methods: {
+    isLessThenMinimalValue() {
+      this.amountOfBTC = (this.amountOfBTC <= this.minAmount) ? this.minAmount : this.amountOfBTC;
+    }
+  },
+  mounted() {
+    this.amountOfBTC = this.minAmount + this.step;
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-.input-fee {
+.input-amount {
   flex-basis: 49%;
   &__wrapper {
     display: block;
@@ -75,7 +79,7 @@ export default {
 }
 
 @media screen and (min-width: 768px) {
-  .input-fee {
+  .input-amount {
     &__wrapper {
       font-size: 13px;
       line-height: 15px;
@@ -90,7 +94,7 @@ export default {
 }
 
 @media screen and (min-width: 1024px) {
-  .input-fee {
+  .input-amount {
     &__wrapper {
       font-size: 14px;
       line-height: 16px;

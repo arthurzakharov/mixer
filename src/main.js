@@ -12,7 +12,8 @@ new Vue({
   },
   methods: {
     getOuterValueFromAttr(attr) {
-      return this.$el.parentNode.getAttribute(attr);
+      // toFixed returns String with + turn into Number
+      return + parseFloat(this.$el.parentNode.getAttribute(attr)).toFixed(5);
     }
   },
   beforeMount() {
