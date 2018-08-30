@@ -34,8 +34,7 @@ export default {
   },
   data() {
     return {
-      valueOne: 45454,
-      step: 0.0001,
+      step: 0.00001,
       amountOfBTC: undefined
     };
   },
