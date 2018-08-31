@@ -40,7 +40,7 @@ export default {
   components: { AInputAddress, AInputFee, AInputAmount, AButton },
   data() {
     return {
-      feeValue: 0,
+      feeValue: this.$root.$data.minFee,
       isFirstCallOfSlider: true,
       amountOfInputs: 1,
       amountOfHandlers: 0,
@@ -185,9 +185,7 @@ export default {
     this.setStylesToSliderLine(feeSlider);
     this.$refs.sliderFee.noUiSlider.on('slide', (values, handle, unencoded, tap, positions) => {
       const updatedFeeValue = parseFloat(unencoded[0].toFixed(5));
-      console.log(updatedFeeValue);
       this.feeValue = updatedFeeValue;
-      // this.$set(this.feeValue, feeValue);
     });
   }
 }

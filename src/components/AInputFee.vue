@@ -9,6 +9,7 @@
         id="fee_for_btc"
         type="number"
         name="fee"
+        :value="feeValue"
       />
     </label>
   </div>
