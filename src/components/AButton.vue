@@ -1,8 +1,9 @@
 <template>
   <button
-    class="button"
+    :class="buttonClasses"
     :type="type"
     @click="handleClick"
+    :disabled="isDisabled"
   >{{ text }}
   </button>
 </template>
@@ -21,8 +22,20 @@ export default {
     type: {
       type: String,
       default: 'button'
+    },
+    isDisabled: {
+      type: Boolean,
+      default: true
     }
   },
+  computed: {
+    buttonClasses: function () {
+      return [
+        'button',
+        { 'button--disabled': this.isDisabled },
+      ];
+    }
+  }
 }
 </script>
 
@@ -41,6 +54,16 @@ export default {
   &:hover {
     color: ghostwhite;
     background-color: lightskyblue;
+  }
+  &--disabled {
+    color: lightsalmon;
+    border-color: lightsalmon;
+    background-color: white;
+    &:hover {
+      color: salmon;
+      border-color: salmon;
+      background-color: white;
+    }
   }
 }
 

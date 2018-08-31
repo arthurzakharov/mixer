@@ -8,6 +8,7 @@
           type="text"
           :name="`person_addresses-${number}`"
           :id="`person_addresses-${number}`"
+          @blur="isEmptyField"
         />
       </label>
       <label class="input__hidden" :for="`${number}_address__percentage`">
@@ -23,6 +24,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'AInputAddress',
   props: {
@@ -36,6 +39,22 @@ export default {
       type: Number
     }
   },
+  methods: {
+    ...mapActions([
+      'changeEmptyFieldError',
+    ]),
+    isEmptyField(e) {
+      console.log('method');
+      this.changeEmptyFieldError(true);
+      if(e.target.value.length === 0) {
+        console.log('+');
+        this.changeEmptyFieldError(true);
+      }else {
+        console.log('-');
+        this.changeEmptyFieldError(false);
+      }
+    }
+  }
 }
 </script>
 

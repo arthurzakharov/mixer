@@ -13,22 +13,34 @@
         :key="`key_from_${index}`"
         :text="inputsField"
         :number="index"
-        :clickHandler="removeInputField"
+        :click-handler="removeInputField"
         class="form__input"
       />
     </div>
-    <a-button class="form__button" text="Add" :handleClick="addInputField" />
+    <a-button
+      class="form__button"
+      text="Add"
+      :is-disabled="false"
+      :handle-click="addInputField"
+    />
     <!-- no-ui-slider injection for fee field -->
     <p class="form__fee-label">Drag to set the fee:</p>
     <div class="form__slider" id="sliderFee" ref="sliderFee"></div>
     <!-- no-ui-slider-injection -->
     <div class="form__slider" id="slider" ref="slider"></div>
     <!-- html post button -->
-    <a-button class="form__button form__button--submit" text="Sell" type="submit" :handleClick="submit" />
+    <a-button
+      class="form__button form__button--submit"
+      text="Sell"
+      type="submit"
+      :is-disabled="getEmptyFieldError"
+      :handle-click="submit"
+    />
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import noUiSlider from 'nouislider';
 import AInputAddress from './AInputAddress.vue';
 import AInputFee from './AInputFee';
@@ -53,12 +65,19 @@ export default {
     };
   },
   methods: {
+    ...mapActions([
+      'changeEmptyFieldError',
+      'changeMinAmount',
+      'changeMinFee',
+      'changeMaxFee',
+    ]),
     submit() {
       console.log('form is sent');
     },
     addInputField() {
       this.amountOfHandlers++;
       this.amountOfInputs++;
+      this.changeEmptyFieldError(true);
       if (this.isFirstCallOfSlider) {
         this.isFirstCallOfSlider = false;
         this.createSlider();
@@ -169,6 +188,9 @@ export default {
         }
       );
     },
+  },
+  computed: {
+    ...mapGetters([ 'getEmptyFieldError' ]),
   },
   mounted() {
     const feeSlider = this.$refs.sliderFee;
