@@ -7,7 +7,7 @@
     <label class="input-fee__hidden"  for="fee_for_btc">
       <input
         id="fee_for_btc"
-        type="number"
+        type="hidden"
         name="fee"
         :value="feeValue"
       />

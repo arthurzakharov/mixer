@@ -44,15 +44,7 @@ export default {
       'changeEmptyFieldError',
     ]),
     isEmptyField(e) {
-      console.log('method');
-      this.changeEmptyFieldError(true);
-      if(e.target.value.length === 0) {
-        console.log('+');
-        this.changeEmptyFieldError(true);
-      }else {
-        console.log('-');
-        this.changeEmptyFieldError(false);
-      }
+      (e.target.value.length === 0) ? this.changeEmptyFieldError(true) : this.changeEmptyFieldError(false);
     }
   }
 }
