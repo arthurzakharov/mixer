@@ -220,11 +220,11 @@ export default {
 @import "../assets/scss/styles";
 
 .noUi-handle {
-  background-color: black;
+  background-color: white;
   opacity: 1;
   width: 20px !important;
   height: 20px !important;
-  border: 1px solid darkslategray;
+  border: 1px solid white;
   border-radius: 50%;
   outline: none;
   top: -7px !important;
@@ -237,25 +237,28 @@ export default {
 .noUi-target {
   display: block;
   height: 5px;
-  background-color: black;
-  border: 1px solid darkslategray;
+  background-color: lightgray;
+  border: 1px solid white;
 }
 
 .form {
   width: 100%;
   padding: 15px 10px;
-  border: 1px solid dimgray;
+  border: 1px solid white;
+  background-color: black;
   border-radius: 10px;
   box-shadow: 1px 1px 10px black;
   &__fee-container {
     display: flex;
     justify-content: space-between;
     margin: 20px 0;
+    background-color: black;
   }
   &__fee-label {
     font-size: 16px;
     line-height: normal;
-    color: darkslategray;
+    background-color: black;
+    color: white;
   }
   &__input {
     position: relative;

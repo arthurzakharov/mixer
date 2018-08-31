@@ -42,28 +42,28 @@ export default {
 <style lang="scss" scoped>
 .button {
   padding: 10px 15px;
-  border: 1px solid darkslategray;
+  border: 1px solid white;
   border-radius: 10px;
-  box-shadow: 1px 1px 1px black;
-  color: darkslategray;
+  box-shadow: 1px 1px 1px white;
+  color: white;
   font-size: 18px;
   line-height: normal;
   outline: none;
   cursor: pointer;
-  background-color: white;
+  background-color: black;
   &:hover {
-    color: ghostwhite;
-    background-color: darkslategray;
+    color: ghostblack;
+    background-color: black;
   }
   &--disabled {
-    color: lightsalmon;
-    border-color: lightsalmon;
-    background-color: white;
-    box-shadow: 1px 1px 1px hotpink;
+    color: red;
+    border-color: red;
+    background-color: black;
+    box-shadow: 1px 1px 1px orangered;
     &:hover {
       color: salmon;
       border-color: salmon;
-      background-color: white;
+      background-color: black;
     }
   }
 }

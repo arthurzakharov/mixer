@@ -72,7 +72,7 @@ export default {
       content: ' ';
       height: 33px;
       width: 2px;
-      background-color: darkslategray;
+      background-color: white;
     }
     &:before {
       transform: rotate(45deg);
@@ -87,7 +87,7 @@ export default {
     font-size: 12px;
     line-height: normal;
     text-align: center;
-    color: darkslategray;
+    color: black;
   }
   &__field {
     display: block;
@@ -96,12 +96,13 @@ export default {
     margin-right: auto;
     margin-left: auto;
     padding: 5px 10px;
-    border: 1px solid darkslategray;
+    border: 1px solid white;
+    background-color: black;
     border-radius: 10px;
     box-sizing: border-box;
     font-size: 16px;
     line-height: 20px;
-    color: darkslategray;
+    color: black;
     &:focus {
       border: 2px solid lightgray;
       outline: none;
@@ -115,7 +116,7 @@ export default {
     font-size: 18px;
     line-height: normal;
     font-weight: 300;
-    color: darkslategray;
+    color: white;
   }
   &:only-child .input__text {
     display: none;
