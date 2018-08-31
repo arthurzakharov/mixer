@@ -4,18 +4,8 @@
   <!--<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">-->
   <div id="form" class="form">
     <div class="form__fee-container">
-      <a-input-amount
-        id="amount_of_btc"
-        name="amount"
-        text="BTC"
-        :minAmount="$root.$data.minAmount"
-      />
-      <a-input-fee
-        id="fee_for_btc"
-        name="fee"
-        text="Fee"
-        :feeValue="feeValue"
-      />
+      <a-input-amount :minAmount="$root.$data.minAmount" />
+      <a-input-fee :feeValue="feeValue" />
     </div>
     <div class="form__address-container">
       <a-input-address
@@ -238,8 +228,7 @@ export default {
     }
   }
   &__slider {
-    margin-left: 25px;
-    margin-right: 25px;
+    margin: 50px 10px;
   }
 }
 
@@ -253,7 +242,7 @@ export default {
       margin: 25px auto;
     }
     &__fee-label {
-      margin-top: 30px;
+      margin-top: 40px;
       font-size: 17px;
       line-height: 21px;
     }
@@ -270,9 +259,7 @@ export default {
       }
     }
     &__slider {
-      margin-top: 60px;
-      margin-left: 0;
-      margin-right: 0;
+      margin: 60px 0;
     }
   }
 }
@@ -287,7 +274,7 @@ export default {
       margin: 30px auto;
     }
     &__fee-label {
-      margin-top: 40px;
+      margin-top: 50px;
       font-size: 18px;
       line-height: 22px;
     }
@@ -299,6 +286,9 @@ export default {
       &--submit {
         margin-top: 60px;
       }
+    }
+    &__slider {
+      margin: 70px 0;
     }
   }
 }

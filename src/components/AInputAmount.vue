@@ -1,13 +1,13 @@
 <template>
   <div class="input-amount">
-    <label class="input-amount__wrapper" :for="id">
-      {{ text }}
+    <label class="input-amount__wrapper" for="amount_of_btc">
+      BTC
       <input
         class="input-amount__field"
-        :id="id"
+        id="amount_of_btc"
         type="number"
         :step="step"
-        :name="name"
+        name="amount"
         v-model="amountOfBTC"
         @change="isLessThenMinimalValue"
       />
@@ -19,15 +19,6 @@
 export default {
   name: 'AInputAmount',
   props: {
-    name: {
-      type: String
-    },
-    id: {
-      type: String
-    },
-    text: {
-      type: String
-    },
     minAmount: {
       type: Number
     },

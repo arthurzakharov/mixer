@@ -1,14 +1,14 @@
 <template>
   <div class="input-fee">
-    <label class="input-fee__wrapper" :for="id">
-      {{ text }}
+    <p class="input-fee__label">Fee</p>
+    <p class="input-fee__value">
+      {{ feeValue }} %
+    </p>
+    <label class="input-fee__hidden"  for="fee_for_btc">
       <input
-        class="input-fee__field"
-        :id="id"
+        id="fee_for_btc"
         type="number"
-        :name="name"
-        v-model="feeValue"
-        disabled
+        name="fee"
       />
     </label>
   </div>
@@ -18,18 +18,6 @@
 export default {
   name: 'AInputFee',
   props: {
-    step: {
-      type: String
-    },
-    name: {
-      type: String
-    },
-    id: {
-      type: String
-    },
-    text: {
-      type: String
-    },
     feeValue: {
       type: Number
     }
@@ -48,41 +36,34 @@ export default {
 <style lang="scss" scoped>
 .input-fee {
   flex-basis: 49%;
-  &__wrapper {
+  &__label {
     display: block;
+    margin: 0;
     font-size: 12px;
     line-height: 14px;
+    text-align: right;
     color: lightskyblue;
   }
-  &__field {
-    width: 100%;
-    height: 32px;
-    margin-top: 5px;
-    padding: 5px 10px;
-    border: 1px solid lightskyblue;
-    border-radius: 10px;
-    box-shadow: 1px 1px 10px lightblue;
+  &__value {
+    margin: 10px 0 0 0;
     box-sizing: border-box;
     font-size: 16px;
     line-height: 20px;
+    text-align: right;
     color: lightskyblue;
-    background-color: white;
-    &:focus {
-      border: 2px solid dodgerblue;
-      outline: none;
-    }
+  }
+  &__hidden {
+    display: none;
   }
 }
 
 @media screen and (min-width: 768px) {
   .input-fee {
-    &__wrapper {
+    &__label {
       font-size: 13px;
       line-height: 15px;
     }
-    &__field {
-      height: 36px;
-      padding: 10px 15px;
+    &__value {
       font-size: 18px;
       line-height: 22px;
     }
@@ -91,13 +72,11 @@ export default {
 
 @media screen and (min-width: 1024px) {
   .input-fee {
-    &__wrapper {
+    &__label {
       font-size: 14px;
       line-height: 16px;
     }
-    &__field {
-      height: 40px;
-      padding: 20px 15px;
+    &__value {
       font-size: 20px;
       line-height: 24px;
     }
