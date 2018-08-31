@@ -27,6 +27,7 @@
     <p class="form__fee-label">Drag to set the fee:</p>
     <div class="form__slider" id="sliderFee" ref="sliderFee"></div>
     <!-- no-ui-slider-injection -->
+    <p v-if="!isFirstCallOfSlider" class="form__fee-label">Drag to set percentage between addresses:</p>
     <div class="form__slider" id="slider" ref="slider"></div>
     <!-- html post button -->
     <a-button
@@ -52,6 +53,7 @@ export default {
   components: { AInputAddress, AInputFee, AInputAmount, AButton },
   data() {
     return {
+      colors: [],
       feeValue: this.$root.$data.minFee,
       isFirstCallOfSlider: true,
       amountOfInputs: 1,
@@ -107,10 +109,14 @@ export default {
     createSlider() {
       this.setInitialPositionOfHandlers();
       this.setInitialStateOfInputs();
+      this.colors = this.getArrayOfRandomColors();
+      const connectors = new Array(this.amountOfInputs);
+      connectors.fill(true);
       noUiSlider.create(
         this.$refs.slider,
         {
           start: this.currentHandlersPosition,
+          connect: connectors,
           range: this.range,
         }
       );
@@ -120,8 +126,7 @@ export default {
         this.currentHandlersPosition = this.roundFloatArray(positions);
       });
       line.noUiSlider.on('update', () => {
-        this.setStylesToSliderHandlers();
-        this.setStylesToSliderLine(line);
+        this.setConnectorsColors(line);
       });
     },
     roundFloatArray(arr) {
@@ -159,34 +164,31 @@ export default {
       tempArrayOfInputFields[index + 1] = parseFloat(secondChange);
       this.$set(this.inputsFields, tempArrayOfInputFields);
     },
-    setStylesToSliderHandlers() {
-      const handlers = document.querySelectorAll('.noUi-handle');
-      handlers.forEach(el => {
-        Object.assign(
-          el.style,
-          {
-            backgroundColor: 'lightblue',
-            opacity: '1',
-            width: '20px',
-            height: '20px',
-            border: '1px solid lightskyblue',
-            borderRadius: '50%',
-            outline: 'none',
-            top: '-10px',
-          }
-        );
-      });
+    getRandomColor() {
+      const hexChars = '0123456789ABCDEF';
+      let hexCode = '#';
+      for(let i = 0; i <= 5; i++) {
+        let randomNum = Math.floor(Math.random() * 16);
+        hexCode += hexChars[randomNum];
+      }
+      return hexCode;
     },
-    setStylesToSliderLine(line) {
-      Object.assign(
-        line.style,
-        {
-          display: 'block',
-          height: '5px',
-          backgroundColor: 'lightblue',
-          border: '1px solid lightskyblue',
-        }
-      );
+    getArrayOfRandomColors() {
+      const arrayOfRandomColors = new Array(this.amountOfInputs);
+      arrayOfRandomColors.fill('#fff');
+      return arrayOfRandomColors.map(() => this.getRandomColor());
+    },
+    setConnectorsColors(slider) {
+      const connectors = slider.querySelectorAll('.noUi-connect');
+      for (let i = 0; i < connectors.length; i++) {
+        connectors[i].style.backgroundColor = this.colors[i];
+      }
+    },
+    setInputsColors() {
+      const connectors = document.querySelectorAll('.input__field');
+      for (let i = 0; i < connectors.length; i++) {
+        connectors[i].style.border = `2px solid ${this.colors[i]}`;
+      }
     },
   },
   computed: {
@@ -203,40 +205,60 @@ export default {
         }
       }
     );
-    this.setStylesToSliderHandlers();
-    this.setStylesToSliderLine(feeSlider);
     this.$refs.sliderFee.noUiSlider.on('slide', (values, handle, unencoded, tap, positions) => {
       const updatedFeeValue = parseFloat(unencoded[0].toFixed(5));
       this.feeValue = updatedFeeValue;
     });
+  },
+  updated() {
+    this.setInputsColors();
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../assets/scss/styles";
+
+.noUi-handle {
+  background-color: black;
+  opacity: 1;
+  width: 20px !important;
+  height: 20px !important;
+  border: 1px solid darkslategray;
+  border-radius: 50%;
+  outline: none;
+  top: -7px !important;
+  &:after,
+  &:before {
+    display: none;
+  }
+}
+
+.noUi-target {
+  display: block;
+  height: 5px;
+  background-color: black;
+  border: 1px solid darkslategray;
+}
+
 .form {
-  width: 95%;
-  margin: 50px auto;
-  padding: 30px 5px;
-  border: 1px solid lightskyblue;
+  width: 100%;
+  padding: 15px 10px;
+  border: 1px solid dimgray;
   border-radius: 10px;
-  box-shadow: 1px 1px 10px lightblue;
+  box-shadow: 1px 1px 10px black;
   &__fee-container {
     display: flex;
     justify-content: space-between;
-    margin: 20px auto;
-    width: calc(100% - 130px);
+    margin: 20px 0;
   }
   &__fee-label {
-    margin-top: 20px;
     font-size: 16px;
-    line-height: 20px;
-    color: lightskyblue;
+    line-height: normal;
+    color: darkslategray;
   }
   &__input {
-    margin-left: 5px;
-    margin-right: 5px;
+    position: relative;
     margin-bottom: 20px;
   }
   &__button {
@@ -254,26 +276,21 @@ export default {
 
 @media screen and (min-width: 768px){
   .form {
-    width: 85%;
-    margin: 60px auto;
     padding: 40px 15px;
     &__fee-container {
-      width: calc(100% - 140px);
+      width: 75%;
       margin: 25px auto;
     }
     &__fee-label {
-      margin-top: 40px;
       font-size: 17px;
-      line-height: 21px;
     }
     &__input {
-      margin-left: 0;
-      margin-right: 0;
+      position: relative;
       margin-bottom: 30px;
     }
     &__button {
       width: 30%;
-      margin: 0 auto;
+      margin: 50px auto;
       &--submit {
         margin-top: 40px;
       }
@@ -286,23 +303,21 @@ export default {
 
 @media screen and (min-width: 1024px){
   .form {
-    width: 75%;
-    margin: 70px auto;
     padding: 60px 25px;
     &__fee-container {
-      width: calc(100% - 180px);
+      width: 80%;
       margin: 30px auto;
     }
     &__fee-label {
-      margin-top: 50px;
       font-size: 18px;
-      line-height: 22px;
     }
     &__input {
+      position: relative;
       margin-bottom: 4%;
     }
     &__button {
       width: 20%;
+      margin: 60px auto;
       &--submit {
         margin-top: 60px;
       }

@@ -47,20 +47,20 @@ export default {
     display: block;
     font-size: 12px;
     line-height: 14px;
-    color: lightskyblue;
+    color: darkslategray;
   }
   &__field {
     width: 100%;
     height: 32px;
     margin-top: 5px;
     padding: 5px 10px;
-    border: 1px solid lightskyblue;
+    border: 1px solid darkslategray;
     border-radius: 10px;
-    box-shadow: 1px 1px 10px lightblue;
+    box-shadow: 1px 1px 1px black;
     box-sizing: border-box;
     font-size: 16px;
     line-height: 20px;
-    color: lightskyblue;
+    color: darkslategray;
     &:focus {
       border: 2px solid dodgerblue;
       outline: none;

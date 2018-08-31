@@ -42,23 +42,24 @@ export default {
 <style lang="scss" scoped>
 .button {
   padding: 10px 15px;
-  background-color: transparent;
-  border: 1px solid lightskyblue;
+  border: 1px solid darkslategray;
   border-radius: 10px;
-  box-shadow: 1px 1px 10px lightblue;
-  color: lightskyblue;
+  box-shadow: 1px 1px 1px black;
+  color: darkslategray;
   font-size: 18px;
-  line-height: 22px;
+  line-height: normal;
   outline: none;
   cursor: pointer;
+  background-color: white;
   &:hover {
     color: ghostwhite;
-    background-color: lightskyblue;
+    background-color: darkslategray;
   }
   &--disabled {
     color: lightsalmon;
     border-color: lightsalmon;
     background-color: white;
+    box-shadow: 1px 1px 1px hotpink;
     &:hover {
       color: salmon;
       border-color: salmon;
@@ -70,14 +71,12 @@ export default {
 @media screen and (min-width: 768px) {
   .button {
     font-size: 20px;
-    line-height: 24px;
   }
 }
 
 @media screen and (min-width: 1024px) {
   .button {
     font-size: 22px;
-    line-height: 26px;
   }
 }
 </style>

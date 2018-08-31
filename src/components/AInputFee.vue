@@ -43,7 +43,7 @@ export default {
     font-size: 12px;
     line-height: 14px;
     text-align: right;
-    color: lightskyblue;
+    color: darkslategray;
   }
   &__value {
     margin: 10px 0 0 0;
@@ -51,7 +51,7 @@ export default {
     font-size: 16px;
     line-height: 20px;
     text-align: right;
-    color: lightskyblue;
+    color: darkslategray;
   }
   &__hidden {
     display: none;
